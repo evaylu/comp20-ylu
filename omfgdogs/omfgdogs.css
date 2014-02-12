@@ -1,0 +1,44 @@
+
+@media (min-width: 992px) {
+
+body{
+	background-image: url('omfgdogs.gif');
+	background-repeat: repeat;
+}
+
+#music {
+	display: none;
+}
+
+#noDOGS{
+	display: none;
+}
+
+#footer{
+	font-size: 20px;
+	font-weight:600;
+	font-family: "Comic Sans MS";
+	color: white;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+}
+
+@media (max-width: 992px) {
+	
+#noDOGS{
+	font-size: 30px;
+	text-align: center;
+}
+
+#music{
+	display: none;
+}
+
+#footer{
+	display: none;
+}
+
+}
