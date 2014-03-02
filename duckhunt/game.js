@@ -6,6 +6,7 @@ function draw() {
 
 		img = new Image();
         img.src = "assets/duckhunt.png";
+        //why second time of onload?
         img.onload = function(){
             init();
         };               
