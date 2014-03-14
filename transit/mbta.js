@@ -7,6 +7,7 @@ var scheduleData;
 var lineColor;
 var stations = [];
 var stationsLatLng = [];
+var stationsLatLng1 = [];
 var stationsLatLng2 = [];
 
 var map;
@@ -24,13 +25,14 @@ function initialize() {
                                        position.coords.longitude);
 
 			console.log(position.coords.latitude);
-			console.log(position.coords.longitude);			
+			console.log(position.coords.longitude);	
+			//set me marker		
 			var marker = new google.maps.Marker({
 				position: me,
 				title: "You are here."
 			});
 			marker.setMap(map);
-
+			// me infowindow
 			var infowindow = new google.maps.InfoWindow({
         		map: map,
         		position: me,
@@ -70,35 +72,35 @@ function setStations() {
     Tparsed = JSON.parse(stationList);
 
    function addStation(list, aStation) {
-    	stop = new google.maps.LatLng(aStation.latitude, aStation.longitude);
-    	list.push(new google.maps.Marker({position: stop, title: aStation.Station, icon: icon}));
+    	stopPosition = new google.maps.LatLng(aStation.latitude, aStation.longitude);
+    	stationsLatLng.push(stopPosition);
+    	stop = new google.maps.Marker({position: stopPosition, title: aStation.Station, icon: icon});
+    	stop.setMap(map);
+    	list.push(stop);
+
     }
 
 	if(lineColor =="red") {
 		console.log("inRed");
-		//add red line stations infomation to "stations" list
+		//add red line stations infomation to "stations" list and draw stations on map
     	for (i = 31; i < 53; i++) {
     		addStation(stations, Tparsed[i]);
     	}
-    	//put stations for firsr branch
+		//draw branch 1 line
 		for(var i = 0; i < 19; i++) {
-			stationsLatLng[i] = stations[i].position;
-			stations[i].setMap(map);
+			stationsLatLng1[i] = stationsLatLng[i];
 		}
-		//put stations for second branch
-		stationsLatLng2[0] = stations[13].position;
-		for(var i = 19; i < 22; i++) {
-			stationsLatLng2[i-18] = stations[i].position;
-			stations[i].setMap(map);
-		}
-		//draw branch 1
 		redline1 = new google.maps.Polyline({
-			path: stationsLatLng,
+			path: stationsLatLng1,
 			strokeColor: "#E42217",
 			strokeWeight: 7
 		});
 		redline1.setMap(map);
-		//draw branch 2
+		//draw branch 2 line
+		stationsLatLng2[0] = stations[13].position;
+		for(var i = 19; i < 22; i++) {
+			stationsLatLng2[i-18] = stationsLatLng[i];
+		}
 		redline2 = new google.maps.Polyline({
 			path: stationsLatLng2,
 			strokeColor: "#E42217",
@@ -109,15 +111,10 @@ function setStations() {
 
 	else if(lineColor == "blue") {
 	    console.log("inBlue");
-	   	//add blue line stations infomation
+	   	//add blue line stations infomation and draw stations on map
 	   	for (i = 0; i < 12; i++) {
 	   		addStation(stations, Tparsed[i]);
 	   	}
-	   	//put stations on map
-		for(var j in stations){
-			stationsLatLng[j] = stations[j].position;
-			stations[j].setMap(map);
-		}
 		//draw line on map
 		line = new google.maps.Polyline({
 			path: stationsLatLng,
@@ -129,15 +126,10 @@ function setStations() {
 
 	else if(lineColor == "orange") {
     	console.log("inOrange");
-	    //add orange line stations infomation
+	    //add orange line stations infomation and draw stations on map
 	   	for (i = 12; i < 31; i++) {
 	   		addStation(stations, Tparsed[i]);
 	   	}
-	   	//put stations on map
-		for(var j in stations){
-			stationsLatLng[j] = stations[j].position;
-			stations[j].setMap(map);
-		}
 		//draw line on map
 		line = new google.maps.Polyline({
 			path: stationsLatLng,
