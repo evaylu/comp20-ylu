@@ -1,10 +1,3 @@
-
-var mapOptions;
-var map;
-var me;
-var marker;
-var scheduleData;
-var lineColor;
 var stations = [];
 var stationsLatLng = [];
 var stationsLatLng1 = [];
@@ -27,17 +20,23 @@ function initialize() {
 			console.log(position.coords.latitude);
 			console.log(position.coords.longitude);	
 			//set me marker		
-			var marker = new google.maps.Marker({
+			marker = new google.maps.Marker({
 				position: me,
 				title: "You are here."
 			});
 			marker.setMap(map);
 			// me infowindow
-			var infowindow = new google.maps.InfoWindow({
+			infowindow = new google.maps.InfoWindow({
         		map: map,
         		position: me,
         		content: marker.title
       		});
+
+      		google.maps.event.addListener(marker, 'click', function() {
+    			console.log("You clicked the marker!");
+    			infowindow.setContent(this.title);
+				infowindow.open(map, this);
+    		});
 			map.setCenter(me);
 		});
 	} else {
@@ -77,6 +76,34 @@ function setStations() {
     	stop = new google.maps.Marker({position: stopPosition, title: aStation.Station, icon: icon});
     	stop.setMap(map);
     	list.push(stop);
+    	google.maps.event.addListener(stop, 'click', function() {
+    		content = '<p>' + this.title + '</p>';
+    		content += '<table><tr><th>Line</th><th>Trip ID</th><th>Direciton</th><th>Time Remaining</th></tr>';
+    		for (var i in scheduleData["schedule"]) {
+    			data = scheduleData["schedule"][i];
+    			stops = data["Predictions"];
+    			for(var j in stops) {
+    				if (stops[j]["Stop"] == this.title) {
+    					time = stops[j]["Seconds"];
+    					var sec = time % 60;
+    					var min = ((time - sec) / 60) % 60;
+    					var h = (time - 60 * min - sec) % 360;
+    					time = h + ": " + min + ": " + sec;
+    			 		content += '<table><tr><td>' + scheduleData["line"] + '</td><td>' + data["TripID"] + '</td><td>' + data["Destination"] + '</td><td>' + time + '</td></tr>';
+    				}
+    			}
+    		}		
+    		content += '</table>';
+    		infowindow.setContent(content);
+			infowindow.open(map, this);
+    	});
+
+
+
+//			scheduleData = JSON.parse(xhr.responseText);
+//			lineColor = scheduleData["line"];	
+//			for (var m in markers)
+
 
     }
 

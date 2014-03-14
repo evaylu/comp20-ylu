@@ -3,3 +3,30 @@ html, body, #map-canvas {
     margin: 0px;
     padding: 0px
 }
+
+p{
+	font-weight: 700;
+	font-size: 18px;
+	text-align: center;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 300px;
+	border: 1px solid black;
+	text-align: left;
+}
+
+th, td{
+	width:25%;
+	border: 1px solid black;
+	font-weight: 300;
+}
+th {
+	font-weight: 500;
+}
+
+td {
+	
+}
