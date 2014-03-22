@@ -1,25 +1,29 @@
-
 <!DOCTYPE html>
-
 <html>
 
 <head>
 <title>Fecesbook</title>
 <script>
-function print(){
+function store() {
 	now = new Date();
 	message = now.getMonth()+1+"/"+now.getDate()+"/"+now.getFullYear()+" "+now.getHours()+":"+now.getMinutes()+" - "+document.getElementById("msg").value;
 	document.getElementById("msg").value="";
-	newNode = document.createElement("p")
-	newText = document.createTextNode(message);
-	newNode.appendChild(newText);
+	localStorage[new Date().getTime()] = message;
+	print();
+}
+
+function print(){
 	text = document.getElementById("status");
-	text.insertBefore(newNode, text.firstChild);
+	output = "";
+	for (key in localStorage) {
+		output = "<p>" + localStorage[key] + "</p>\n" + output;
+	}
+	text.innerHTML = output;
 }
 </script>
 </head>
 
-<body>
+<body onload="print()">
 	<h1>Fecebook</h1>
 	<div id="nav">
 		<ul>
@@ -32,7 +36,7 @@ function print(){
 		</ul>
 	</div>
 	<h2 id="fullname">Barney Gumble</h2>
-	<h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" onchange="print()" /></h3>
+	<h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" onchange="store()" /></h3>
 	<h3>Updates</h3>
 	<div id="status">
 	</div>
