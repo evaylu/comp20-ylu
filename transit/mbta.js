@@ -16,9 +16,6 @@ function mbta() {
 
 		 me = new google.maps.LatLng(position.coords.latitude,
                                        position.coords.longitude);
-
-			//console.log("My Latitude: "+position.coords.latitude);
-			//console.log("My Longitude: "+position.coords.longitude);	
 			//set me marker
 			marker = new google.maps.Marker({
 				position: me,
@@ -147,7 +144,6 @@ function setStations() {
 	    			stops = data["Predictions"];
 	    			for(var j in stops) {
 	    				//find the stop of interest
-	    				//(to be removed: can sort the array by time?)
 	    				if (stops[j]["Stop"] == this.title) {
 	    					//calculate time
 	    					time = stops[j]["Seconds"];
