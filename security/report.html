@@ -26,10 +26,10 @@
 <h2>Issues Found</h2>
 
 <p><strong>1. No input validation </strong></p>
-
-<p>Where: the POST API</p>
-<p>Severity: high </p>
-<p>Description of issue: Any string including HTML and JavaScript statements can be posted in the username or score field, which will be stored in the database, and execute when the app run. For example, when the app is hosted locally, execute this in terminal:
+<ul>
+<li><p>Where: the POST API</p>
+<li><p>Severity: high </p>
+<li><p>Description of issue: Any string including HTML and JavaScript statements can be posted in the username or score field, which will be stored in the database, and execute when the app run. For example, when the app is hosted locally, execute this in terminal:
 </br></p>
 <code>curl --data "username= &lt;img src="http://img2.wikia.nocookie.net/__cb20101015153557/muppet/images/7/79/Kermit-the-frog.jpg" alt=“Kermit the frog”/&gt;&amp;score=1000&amp;grid=something" http://localhost:3000/submit.json</code>
 </br><p>
@@ -37,28 +37,29 @@ will make the web page look like:
 </br>
 <img src="pic1.jpeg" /></p>
 
-<p>Resolution: Add input validation to the input, such as create a key specifically for a 2048 game, which must be sent with the data. Only data with the correct key will be stored and displayed.</p>
+<li><p>Resolution: Add input validation to the input, such as create a key specifically for a 2048 game, which must be sent with the data. Only data with the correct key will be stored and displayed.
+</p></li></ul>
 
 </br>
 <p><strong>2. No Cross-Origin-Resource-Sharing limit</strong></p>
-
-<p>Where: the application, especially the POST API</p>
-<p>Severity: high</p>
-<p>Description of issue: The application allows submits of data from any domain:</p>
+<ul>
+<li><p>Where: the application, especially the POST API</p></li>
+<li><p>Severity: high</p></li>
+<li><p>Description of issue: The application allows submits of data from any domain:</p>
 <code>res.header("Access-Control-Allow-Origin", “*”); </code>
-<p>This allows any origin to send data to the application. Anyone can use curl (as in the first example) to send fake high scores.</p>
+<p>This allows any origin to send data to the application. Anyone can use curl (as in the first example) to send fake high scores.</p></li>
 
-<p>Resolution: Replace the asterisk with an url from which the score should be sent (a 2048 game).</p>
-
+<li><p>Resolution: Replace the asterisk with an url from which the score should be sent (a 2048 game).</p></li>
+</ul>
 </br>
 <p><strong>3. No Query Validation</strong></p>
+<ul>
+<li><p>Where: the GET API</p></li>
+<li><p>Severity: low</p></li>
+<li><p>Description of issue: Unsafe queries can be created via “string concatenation” from GET function: php automatically converts inputs within square brackets to associated right format. For example, if </p><code>http://localhost:3000/scores.json?username%5B$ne%5D=player1</code><p> is entered in the address bar, the GET API will return objects with usernames that are not ‘player1'. </p></li>
 
-<p>Where: the GET API</p>
-<p>Severity: low</p>
-<p>Description of issue: Unsafe queries can be created via “string concatenation” from GET function: php automatically converts inputs within square brackets to associated right format. For example, if </p><code>http://localhost:3000/scores.json?username%5B$ne%5D=player1</code><p> is entered in the address bar, the GET API will return objects with usernames that are not ‘player1'. </p>
-
-<p>Resolution: Add a function that converts special characters into corresponding HTML entities for the query validation.</p>
-
+<li><p>Resolution: Add a function that converts special characters into corresponding HTML entities for the query validation.</p></li>
+</ul>
 </br>
 <h2>Conclusion</h2>
 
