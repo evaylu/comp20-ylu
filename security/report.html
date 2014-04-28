@@ -3,7 +3,7 @@
 <meta charset='utf-8'>
 <head>
 	<title>Security Assessment of 2048 Game Center</title>
-
+	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
@@ -16,12 +16,12 @@
 </br>
 <h2>Methodology</h2>
 
-<p>To test the application, I first conducted “black box” testing, for which I tried several attacking without reading the source ode. Then I did the “white box” testing, after I studied the source code. I downloaded the source code of the app, and hosted locally for the testings.</p>
+<p>To test the application, I first conducted “black box” testing, for which I tried several attacking without reading the source ode. Then I did the “white box” testing, after I studied the source code. I downloaded the source code of the app, and hosted locally for the tests.</p>
 
 </br>
 <h2>Abstract of Findings</h2>
 
-<p>There are three vulnerabilities found in this application: (1) The input of data is not validated before being stored in the database and displayed on the webpage, which means things like HTML statements that display a picture can be submitted in username field. (2) Cross-Origin-Resource-Sharing is open to any domain, that is, anyone connected to the internet can submit fake data to the database. (3) Unsafe Query can be conducted via GET API, by concatenate strings that can be recognized as a command by the database to the url.</p>
+<p>There are three vulnerabilities found in this application: (1) The input of data is not validated before being stored in the database and displayed on the webpage, which means things like HTML statements that display a picture can be submitted in username field. (2) Cross-Origin-Resource-Sharing is open to any domain, that is, anyone connected to the Internet can submit fake data to the database. (3) Unsafe Query can be conducted via GET API, by concatenate strings that can be recognized as a command by the database to the url.</p>
 </br>
 <h2>Issues Found</h2>
 
@@ -29,11 +29,10 @@
 
 <p>Where: the POST API</p>
 <p>Severity: high </p>
-<p>Description of issue: Any string including HTML and Javascript statements can be posted in the username or score field, which will be stored in the database, and execute when the app run. For example, when the app is hosted locally, execute this in terminal:
-</br></br>
+<p>Description of issue: Any string including HTML and JavaScript statements can be posted in the username or score field, which will be stored in the database, and execute when the app run. For example, when the app is hosted locally, execute this in terminal:
+</br></p>
 <code>curl --data "username= &lt;img src="http://img2.wikia.nocookie.net/__cb20101015153557/muppet/images/7/79/Kermit-the-frog.jpg" alt=“Kermit the frog”/&gt;&amp;score=1000&amp;grid=something" http://localhost:3000/submit.json</code>
-</br>
-</br>
+</br><p>
 will make the web page look like:
 </br>
 <img src="pic1.jpeg" /></p>
@@ -56,14 +55,14 @@ will make the web page look like:
 
 <p>Where: the GET API</p>
 <p>Severity: low</p>
-<p>Description of issue: Unsafe queries can be created via “string concatenation” from GET function: php automatically converts inputs within square brackets to associated right format. For example, if <code>http://localhost:3000/scores.json?username%5B$ne%5D=player1</code> is entered in the address bar, the GET API will return objects with usernames that are not ‘player1'. </p>
+<p>Description of issue: Unsafe queries can be created via “string concatenation” from GET function: php automatically converts inputs within square brackets to associated right format. For example, if </p><code>http://localhost:3000/scores.json?username%5B$ne%5D=player1</code><p> is entered in the address bar, the GET API will return objects with usernames that are not ‘player1'. </p>
 
 <p>Resolution: Add a function that converts special characters into corresponding HTML entities for the query validation.</p>
 
 </br>
 <h2>Conclusion</h2>
 
-<p>By correcting these issues on the 2048 Game Center will help decrease the application's vulnerability to a certain level. However, with the flexibility of NoSQL databases, there is still great chances that data submitted can be modified to affect the databases and application's behaviors. To make the application more secure, more validation would need to be implemented on not only the input, but also the results.</p>
+<p>By correcting these issues on the 2048 Game Center will help decrease the application's vulnerability to a certain level. However, with the flexibility of NoSQL databases, there are still great chances that data submitted can be modified to affect the databases and application's behaviors. To make the application more secure, more validation would need to be implemented on not only the input, but also the results.</p>
 
 </body>
 
