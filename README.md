@@ -1,4 +1,2 @@
-This is a private repo for submitting assignments and labs for comp20.
+This is a repository for Tufts University COMP20 course tought by Professor Chow.
 
-2/11/2014
-finished lab4: OMFGDOGS

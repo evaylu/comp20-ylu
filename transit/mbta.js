@@ -39,7 +39,7 @@ function mbta() {
 		});
 	} 
 	else {
-    	alert('Error: Your browse doesn\'t support geolocation.');
+    	alert('Error: Your browse doesn\'ft support geolocation.');
   	}
 }
 
