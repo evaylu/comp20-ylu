@@ -1,2 +1,5 @@
-This is a repository for Tufts University COMP20 course tought by Professor Chow.
+This repository contains projects I worked on for Tufts University COMP20 - Web Programming course taught by Professor Chow in spring 2014.
 
+Among all the projects I did for this course, the MBTA Map and Schedule Rodeo is my favorite and most proud of project, for the reason that it has functions that actually solve a real world problem -- it provides real time schedules for trains, which may recude the time people wasted on just waiting for a train.
+
+There is so much I learnt from this course. Aside from the knowledge of World Wide Web, the languages and techniques of writing client-side and server-side web programs, this course also taught me the ability to handle a new subject independently by using a variety of online resources. I managed to achieve goals that I could not imagine accomplishing on my own before.
