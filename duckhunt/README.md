@@ -1,4 +1,4 @@
-This program is a modified, playable JavaScript version of Duck Hunt game, and will be playabe on the web browser.
+This program is a modified, playable JavaScript version of Duck Hunt game, and will be playable on the web browser.
 
 So far I finished Part I of the program Duck Hunt.
 
